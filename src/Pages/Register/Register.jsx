@@ -1,6 +1,5 @@
 import {
   Card,
-  input,
   Button,
   Typography,
   Select,
@@ -11,28 +10,87 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import { axiosPublic } from "../../Hooks/useAxios";
+import axios from "axios";
 
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
+
+  // handle form submission
+  const onSubmit = async (data) => {
     console.log(data);
-    createUser(data.email, data.password)
-    .then((result) => {
-        const user = result.user;
-        console.log(user);
-        navigate("/");
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+
+    // get image file and upload to imagebb
+    const imageFile = { image: data.image[0] };
+    const res = await axios.post(
+      `https://api.imgbb.com/1/upload?key= ${image_hosting_key}`,
+      imageFile,
+      {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      }
+    );
+
+    const image_url = res.data.data.display_url;
+    console.log(image_url);
+
+    try {
+      await createUser(data.email, data.password);
+
+      await updateUserProfile(data.name, image_url)
+        .then(() => {
+          reset();
+          Swal.fire({
+            title: "Successfully registered",
+            showClass: {
+              popup: `
+                            animate__animated
+                            animate__fadeInUp
+                            animate__faster
+                          `,
+            },
+            hideClass: {
+              popup: `
+                            animate__animated
+                            animate__fadeOutDown
+                            animate__faster
+                          `,
+            },
+          });
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {}
+
+    if (res.data.success) {
+      const employee = {
+        name: data.name,
+        email: data.email,
+        role: data.role,
+        designation: data.designation,
+        salary: parseFloat(data.salary),
+        accountNO: parseFloat(data.accountNo),
+        image: res.data.data.display_url,
+      };
+      console.log(employee);
+
+      // post employee data to the database
+      axiosPublic.post(`/users/${data.email}`, employee);
+    }
   };
 
   return (
@@ -52,6 +110,7 @@ const Register = () => {
             </Typography>
             <Input
               size="lg"
+              type="number"
               placeholder="Bank account no"
               {...register("accountNo", { required: true })}
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -109,12 +168,17 @@ const Register = () => {
             <div className="w-full">
               <Select
                 label="Select role"
+                {...register("role", { required: true })}
                 onChange={(value) => setValue("role", value)}
               >
                 <Option value="HR">HR</Option>
                 <Option value="Employee">Employee</Option>
               </Select>
+              {errors.role?.type === "required" && (
+                <p className="text-red-600">role is required</p>
+              )}
             </div>
+
             {/* email */}
             <Typography variant="h6" color="blue-gray" className="-mb-3">
               Email
@@ -148,25 +212,23 @@ const Register = () => {
               }}
             />
             {errors.password?.type === "required" && (
-              <p className="text-red-600">
-                password is required
-              </p>
+              <p className="text-red-600">password is required</p>
             )}
             {errors.password?.type === "minLength" && (
-              <p className="text-red-600">
-                password must be 6 characters
-              </p>
+              <p className="text-red-600">password must be 6 characters</p>
             )}
             {/* {errors.password?.type === "pattern" && (
               <p className="text-red-600">
                 password must have one uppercase and one special characters
               </p>
             )} */}
-            {/* profile picture */}
+
+            {/* image */}
             <input
               type="file"
-              name="profilePIcture"
-              {...register("profilePicture", { required: true })}
+              name="image"
+              accept="image/*"
+              {...register("image", { required: true })}
               className="file-input w-full max-w-xs"
             />
           </div>

@@ -1,11 +1,15 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
-    const { logIn} = useContext(AuthContext);
-    console.log('clicking login', logIn);
+  const { logIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/"
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -14,13 +18,31 @@ const Login = () => {
     const password = form.password.value;
     console.log(email, password);
     logIn(email, password)
-    .then((result) => {
+      .then((result) => {
         const user = result.user;
         console.log(user);
-    })
-    .catch((error) => {
+        Swal.fire({
+          title: "Successfully logged in",
+          showClass: {
+            popup: `
+                        animate__animated
+                        animate__fadeInUp
+                        animate__faster
+                      `,
+          },
+          hideClass: {
+            popup: `
+                        animate__animated
+                        animate__fadeOutDown
+                        animate__faster
+                      `,
+          },
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
         console.log(error);
-    });
+      });
   };
 
   return (

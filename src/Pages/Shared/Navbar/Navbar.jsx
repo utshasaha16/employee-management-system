@@ -16,8 +16,12 @@ export const Navbar = () => {
   const [openNav, setOpenNav] = useState(false);
 
   const handleLogOut = () => {
-    logOut();
-  }
+    logOut()
+    .then(() => {})
+    .catch((error) => {
+      console.log(error);
+    }); 
+  };
 
   useEffect(() => {
     window.addEventListener(
@@ -34,9 +38,7 @@ export const Navbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-       <Link to="/">
-       Home
-       </Link>
+        <Link to="/">Home</Link>
       </Typography>
       <Typography
         as="li"
@@ -57,6 +59,16 @@ export const Navbar = () => {
         <a href="#" className="flex items-center">
           Contact Us
         </a>
+      </Typography>
+      <Typography
+        as="li"
+        variant="small"
+        color="blue-gray"
+        className="p-1 font-normal"
+      >
+        <Link to="/secret" className="flex items-center">
+          secret
+        </Link>
       </Typography>
     </ul>
   );
@@ -81,25 +93,37 @@ export const Navbar = () => {
             <div className="flex items-center gap-x-1">
               <p>{user?.email}</p>
 
-              <button onClick={handleLogOut} className="bg-black p-4 text-white">LogOut</button>
-              <Link to="/login">
-                <Button
-                  variant="text"
-                  size="sm"
-                  className="hidden lg:inline-block"
-                >
-                  <span>Log In</span>
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button
-                  variant="gradient"
-                  size="sm"
-                  className="hidden lg:inline-block"
-                >
-                  <span>Register</span>
-                </Button>
-              </Link>
+              {user ? (
+                <>
+                  <button
+                    onClick={handleLogOut}
+                    className="bg-black p-4 text-white"
+                  >
+                    LogOut
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button
+                      variant="text"
+                      size="sm"
+                      className="hidden lg:inline-block"
+                    >
+                      <span>Log In</span>
+                    </Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button
+                      variant="gradient"
+                      size="sm"
+                      className="hidden lg:inline-block"
+                    >
+                      <span>Register</span>
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
             <IconButton
               variant="text"
