@@ -3,13 +3,14 @@ import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../../component/SocialLogin/SocialLogin";
 
 const Login = () => {
   const { logIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/"
+  const from = location.state?.from?.pathname || "/";
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -42,6 +43,13 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
 
@@ -96,6 +104,7 @@ const Login = () => {
             </Link>
           </Typography>
         </form>
+        <SocialLogin></SocialLogin>
       </Card>
     </div>
   );

@@ -13,6 +13,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { axiosPublic } from "../../Hooks/useAxios";
 import axios from "axios";
+import SocialLogin from "../../component/SocialLogin/SocialLogin";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -49,32 +50,36 @@ const Register = () => {
     try {
       await createUser(data.email, data.password);
 
-      await updateUserProfile(data.name, image_url)
-        .then(() => {
-          reset();
-          Swal.fire({
-            title: "Successfully registered",
-            showClass: {
-              popup: `
+      await updateUserProfile(data.name, image_url).then(() => {
+        reset();
+        Swal.fire({
+          title: "Successfully registered",
+          showClass: {
+            popup: `
                             animate__animated
                             animate__fadeInUp
                             animate__faster
                           `,
-            },
-            hideClass: {
-              popup: `
+          },
+          hideClass: {
+            popup: `
                             animate__animated
                             animate__fadeOutDown
                             animate__faster
                           `,
-            },
-          });
-          navigate("/");
-        })
-        .catch((error) => {
-          console.log(error);
+          },
         });
-    } catch (error) {}
+        navigate("/");
+      });
+    } catch (error) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `${error.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
 
     if (res.data.success) {
       const employee = {
@@ -242,6 +247,7 @@ const Register = () => {
             </Link>
           </Typography>
         </form>
+        <SocialLogin></SocialLogin>
       </Card>
     </div>
   );
