@@ -17,10 +17,10 @@ export const Navbar = () => {
 
   const handleLogOut = () => {
     logOut()
-    .then(() => {})
-    .catch((error) => {
-      console.log(error);
-    }); 
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -46,9 +46,9 @@ export const Navbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <Link to="/dashboard" className="flex items-center">
           Dashboard
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -56,9 +56,9 @@ export const Navbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <a href="#" className="flex items-center">
+        <Link className="flex items-center">
           Contact Us
-        </a>
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -75,13 +75,12 @@ export const Navbar = () => {
 
   return (
     <div>
-      <MtNavbar className="shadow-none h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+      <MtNavbar className="shadow-none h-max max-w-full rounded-none px-4 py-2 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <div className="flex items-center gap-4">
             <img className="w-10" src={logo} alt="" />
             <Link to="/">
               <Typography
-                as="a"
                 className="mr-4 cursor-pointer py-1.5 font-medium"
               >
                 Employee Management
@@ -167,12 +166,16 @@ export const Navbar = () => {
         <Collapse open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
-            </Button>
+            <Link to="/login">
+              <Button fullWidth variant="text" size="sm" className="">
+                <span>Log In</span>
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button fullWidth variant="gradient" size="sm" className="">
+                <span>Register</span>
+              </Button>
+            </Link>
           </div>
         </Collapse>
       </MtNavbar>

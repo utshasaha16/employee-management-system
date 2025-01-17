@@ -8,6 +8,11 @@ import Register from "../Pages/Register/Register";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Secret from "../Pages/Secret/Secret";
 import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../Layout/Dashboard/Dashboard";
+import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
+import PayRoll from "../Pages/Dashboard/PayRoll/PayRoll";
+import WorkSheet from "../Pages/Dashboard/EmployeeDashboard/WorkSheet/WorkSheet";
+import PaymentHistory from "../Pages/Dashboard/EmployeeDashboard/PaymentHistory/PaymentHistory";
 
   export const router = createBrowserRouter([
     {
@@ -20,17 +25,43 @@ import PrivateRoute from "./PrivateRoute";
             element: <Home></Home>
         },
         {
-          path: "/secret",
+          path: "secret",
           element: <PrivateRoute> <Secret></Secret></PrivateRoute>
         },
         {
-          path: "/login",
+          path: "login",
           element: <Login></Login>
         },
         {
-          path: "/register",
+          path: "register",
           element: <Register></Register>
         }
       ]
     },
+    {
+      path: "dashboard",
+      element: <Dashboard></Dashboard>,
+      children: [
+        // employee routes
+        {
+          path: "work-sheet",
+          element: <WorkSheet></WorkSheet>
+        },
+        {
+          path: "payment-history",
+          element: <PaymentHistory></PaymentHistory>
+        },
+
+
+        // admin routes
+        {
+          path: "employeeList",
+          element: <EmployeeList></EmployeeList>
+        },
+        {
+          path: "payroll",
+          element: <PayRoll></PayRoll>
+        }
+      ]
+    }
   ]);

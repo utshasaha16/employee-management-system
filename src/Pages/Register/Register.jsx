@@ -17,6 +17,7 @@ import SocialLogin from "../../component/SocialLogin/SocialLogin";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Register = () => {
     // get image file and upload to imagebb
     const imageFile = { image: data.image[0] };
     const res = await axios.post(
-      `https://api.imgbb.com/1/upload?key= ${image_hosting_key}`,
+      `${image_hosting_api}`,
       imageFile,
       {
         headers: {
@@ -47,6 +48,7 @@ const Register = () => {
     const image_url = res.data.data.display_url;
     console.log(image_url);
 
+    // Registar mew user
     try {
       await createUser(data.email, data.password);
 
@@ -81,6 +83,7 @@ const Register = () => {
       });
     }
 
+    // send data to the data base
     if (res.data.success) {
       const employee = {
         name: data.name,
@@ -93,8 +96,8 @@ const Register = () => {
       };
       console.log(employee);
 
-      // post employee data to the database
-      axiosPublic.post(`/users/${data.email}`, employee);
+      // post user data to the database
+      axiosPublic.post("/users", employee);
     }
   };
 

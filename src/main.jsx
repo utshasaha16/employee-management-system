@@ -10,7 +10,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
       <ThemeProvider>
-        <div className="max-w-screen-xl mx-auto">
+        <div className="container mx-auto">
           <RouterProvider router={router} />
         </div>
       </ThemeProvider>
