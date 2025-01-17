@@ -1,15 +1,21 @@
 import { Select, Option } from "@material-tailwind/react";
 import { Input } from "@material-tailwind/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { useForm, } from "react-hook-form";
 import useAxios from "../../../../Hooks/useAxios";
+import EmployeeForm from "../EmployeeForm/EmployeeForm";
+import { AuthContext } from "../../../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import useFormData from "../../../../Hooks/useFormData";
 
 const WorkSheet = () => {
   const axiosPublic = useAxios();
   const [startDate, setStartDate] = useState(new Date());
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue, reset } = useForm();
+  const {user} = useContext(AuthContext);
+  const [, refetch] = useFormData();
 
   const handleDate = (date) => {
     console.log(date);
@@ -22,19 +28,32 @@ const WorkSheet = () => {
     const workSheet = {
       task: data.task,
       hour: parseFloat(data.hour),
-      date: data.date
+      date: data.date,
+      email: user?.email
     }
 
     // save data to the data base
     axiosPublic.post("/employee-work-sheet", workSheet)
     .then(result => {
       console.log(result.data);
+      if(result.data.insertedId){
+        reset();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        refetch()
+
+      }
     })
 
   };
   return (
     <div className="p-4">
-      <h2>Work Sheet</h2>
+      <h2 className="mb-3 text-lg">Work Sheet</h2>
       {/* work sheet form */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="md:flex gap-2 md:space-y-0 space-y-3">
@@ -80,6 +99,8 @@ const WorkSheet = () => {
           </button>
         </div>
       </form>
+      {/*  */}
+      <EmployeeForm></EmployeeForm>
     </div>
   );
 };

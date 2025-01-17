@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { BiSpreadsheet } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
+import { FaHome } from "react-icons/fa";
 
 const Dashboard = () => {
   // TODO : Check if user is admin
@@ -17,6 +18,11 @@ const Dashboard = () => {
           <li className="flex items-center gap-1 p-4">
             <MdPayment className="text-lg"></MdPayment>
             <NavLink to="/dashboard/payment-history">Payment History</NavLink>
+          </li>
+          <div className="divider"></div>
+          <li className="flex items-center gap-1 p-4">
+            <FaHome></FaHome>
+            <NavLink to="/">Home</NavLink>
           </li>
         </ul>
       </div>

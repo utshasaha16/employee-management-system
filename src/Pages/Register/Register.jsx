@@ -11,9 +11,9 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
-import { axiosPublic } from "../../Hooks/useAxios";
 import axios from "axios";
 import SocialLogin from "../../component/SocialLogin/SocialLogin";
+import useAxios from "../../Hooks/useAxios";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -28,6 +28,7 @@ const Register = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const axiosPublic = useAxios()
 
   // handle form submission
   const onSubmit = async (data) => {
