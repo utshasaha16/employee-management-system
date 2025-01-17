@@ -2,9 +2,9 @@ import { IconButton } from "@material-tailwind/react";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useContext } from "react";
-import useAxios from "../../Hooks/useAxios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxios from "../../Hooks/useAxios";
 
 const SocialLogin = () => {
   const { googleSignIn } = useContext(AuthContext);
@@ -14,14 +14,15 @@ const SocialLogin = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result.user);
+        // const currentUser = result.user;
+        console.log(result);
         const userInfo = {
-          name: result.user.displayName,
-          email: result.user.email,
+          name: result.user?.displayName,
+          email: result.user?.email,
           role: "Employee",
         };
         axiosPublic
-          .post(`/users/${result.user.email}`, userInfo)
+          .post('/users', userInfo)
           .then((response) => {
             console.log(response.data);
             Swal.fire({
@@ -45,6 +46,7 @@ const SocialLogin = () => {
           });
       })
       .catch((error) => {
+        console.log(error);
         Swal.fire({
           position: "top-end",
           icon: "error",

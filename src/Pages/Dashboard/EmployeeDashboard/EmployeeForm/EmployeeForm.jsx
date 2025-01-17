@@ -1,24 +1,39 @@
 import { FaPenToSquare } from "react-icons/fa6";
-import { Card, Typography } from "@material-tailwind/react";
-import { TiDelete } from "react-icons/ti";
-import useFormData from "../../../../Hooks/useFormData";
-import { useState } from "react";
-import {
-  Button,
+import { Input, Option, Select, Typography, Button,
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
+  DialogFooter 
 } from "@material-tailwind/react";
+import { TiDelete } from "react-icons/ti";
+import useFormData from "../../../../Hooks/useFormData";
+import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import useAxios from "../../../../Hooks/useAxios";
+import DatePicker from "react-datepicker";
+import {  useForm } from "react-hook-form";
+import { AuthContext } from "../../../../Provider/AuthProvider";
 
-const EmployeeForm = () => {
-  const [work, refetch] = useFormData();
+const EmployeeForm = ({sheet, index}) => {
+  const {user} = useContext(AuthContext);
+  const [startDate, setStartDate] = useState(new Date());
+  const { register, handleSubmit, setValue, reset } = useForm();
+  const [, refetch] = useFormData();
   const axiosPublic = useAxios();
-  const TABLE_HEAD = ["Task no", "Task", "Hour", "Date", "Update", "Delete"];
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(!open);
+  const {task, hour, date, _id} = sheet;
+
+ 
+
+  const handleDate = (date) => {
+    console.log(date);
+    setStartDate(date)
+    setValue("date", date)
+  }
+
+  const handleOpen = () => {
+    setOpen(!open)
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -45,33 +60,31 @@ const EmployeeForm = () => {
     });
   };
 
+  // handle update data
+  const onSubmit = data => {
+    console.log(data);
+   if(user){
+    axiosPublic.put(`/employee-work-sheet/${_id}`, data)
+    .then(res => {
+      console.log(res.data);
+      if(res.data.modifiedCount > 0){
+        refetch()
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your work sheet has been updated",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setOpen(false)
+      }
+    })
+   }
+  }
+
   return (
-    <div className="mt-3">
-      <h2 className="text-lg">Work Data</h2>
-      <div className="mt-2">
-        <Card className="h-full w-full overflow-scroll">
-          <table className="w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                  >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal leading-none opacity-70"
-                    >
-                      {head}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {work.map((sheet, index) => (
-                <tr key={sheet._id} className="even:bg-blue-gray-50/50">
+    <>
+                <tr className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <Typography
                       variant="small"
@@ -87,7 +100,7 @@ const EmployeeForm = () => {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {sheet.task}
+                      {task}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -96,7 +109,7 @@ const EmployeeForm = () => {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {sheet.hour}
+                      {hour}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -105,7 +118,7 @@ const EmployeeForm = () => {
                       color="blue-gray"
                       className="font-normal"
                     >
-                      {sheet.date}
+                      {date}
                     </Typography>
                   </td>
                   <td className="p-4">
@@ -121,7 +134,7 @@ const EmployeeForm = () => {
                   </td>
                   <td className="p-4">
                     <button
-                      onClick={() => handleDelete(sheet._id)}
+                      onClick={() => handleDelete(_id)}
                       className=""
                     >
                       <Typography color="blue-gray" className="font-normal">
@@ -130,16 +143,48 @@ const EmployeeForm = () => {
                     </button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </Card>
-      </div>
+             
       {/* dialog */}
       <div>
         <Dialog open={open} handler={handleOpen}>
-          <DialogHeader>Update the date</DialogHeader>
-          <DialogBody></DialogBody>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <DialogHeader>Update the date</DialogHeader><DialogBody>
+            
+              {/* select task */}
+              <div className="w-full mb-3">
+                <Select
+                  label="Select Task"
+                  {...register("task", { required: true })}
+                  onChange={(value) => setValue("task", value)}
+                >
+                  
+                  <Option value="Sales">Sales</Option>
+                  <Option value="Support">Support</Option>
+                  <Option value="Paper-work">Paper work</Option>
+                  <Option value="Content">Content</Option>
+                </Select>
+              </div>
+              {/* hour */}
+              <Input
+                {...register("hour")}
+                name="hour"
+                type="number"
+                // value={work.hour}
+                variant="outlined"
+                label="Hour"
+                placeholder="Hour"
+              />
+              {/* date picker */}
+              <div className="mt-3">
+                <DatePicker
+                  // name="date"
+                  className="border-2 border-gray-400 rounded-md p-1"
+                  selected={startDate}
+                  onChange={handleDate}
+                />
+              </div>
+            
+          </DialogBody>
           <DialogFooter>
             <Button
               variant="text"
@@ -149,13 +194,14 @@ const EmployeeForm = () => {
             >
               <span>Close</span>
             </Button>
-            <Button variant="gradient" color="green" onClick={handleOpen}>
+            <Button type="submit"  variant="gradient" color="green" >
               <span>Update</span>
             </Button>
           </DialogFooter>
+          </form>
         </Dialog>
       </div>
-    </div>
+      </>
   );
 };
 

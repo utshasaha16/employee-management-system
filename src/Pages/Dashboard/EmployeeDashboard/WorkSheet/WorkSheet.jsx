@@ -1,9 +1,9 @@
-import { Select, Option } from "@material-tailwind/react";
+import { Select, Option, Card, Typography } from "@material-tailwind/react";
 import { Input } from "@material-tailwind/react";
 import { useContext, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import { useForm, } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import useAxios from "../../../../Hooks/useAxios";
 import EmployeeForm from "../EmployeeForm/EmployeeForm";
 import { AuthContext } from "../../../../Provider/AuthProvider";
@@ -14,14 +14,15 @@ const WorkSheet = () => {
   const axiosPublic = useAxios();
   const [startDate, setStartDate] = useState(new Date());
   const { register, handleSubmit, setValue, reset } = useForm();
-  const {user} = useContext(AuthContext);
-  const [, refetch] = useFormData();
+  const { user } = useContext(AuthContext);
+  const TABLE_HEAD = ["Task no", "Task", "Hour", "Date", "Update", "Delete"];
+  const [work, refetch] = useFormData();
 
   const handleDate = (date) => {
     console.log(date);
-    setStartDate(date)
-    setValue("date", date)
-  }
+    setStartDate(date);
+    setValue("date", date);
+  };
 
   const onSubmit = (data) => {
     console.log(data);
@@ -29,27 +30,24 @@ const WorkSheet = () => {
       task: data.task,
       hour: parseFloat(data.hour),
       date: data.date,
-      email: user?.email
-    }
+      email: user?.email,
+    };
 
     // save data to the data base
-    axiosPublic.post("/employee-work-sheet", workSheet)
-    .then(result => {
+    axiosPublic.post("/employee-work-sheet", workSheet).then((result) => {
       console.log(result.data);
-      if(result.data.insertedId){
+      if (result.data.insertedId) {
         reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
           title: "Your work has been saved",
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
         });
-        refetch()
-
+        refetch();
       }
-    })
-
+    });
   };
   return (
     <div className="p-4">
@@ -59,18 +57,17 @@ const WorkSheet = () => {
         <div className="md:flex gap-2 md:space-y-0 space-y-3">
           {/* select task */}
           <div className="w-full">
-              <Select
-                label="Select Task"
-                {...register("task", { required: true })}
-                onChange={(value) => setValue("task", value)}
-              >
-                <Option value="Sales">Sales</Option>
-                <Option value="Support">Support</Option>
-                <Option value="Paper-work">Paper work</Option>
-                <Option value="Content">Content</Option>
-              </Select>
-              
-            </div>
+            <Select
+              label="Select Task"
+              {...register("task", { required: true })}
+              onChange={(value) => setValue("task", value)}
+            >
+              <Option value="Sales">Sales</Option>
+              <Option value="Support">Support</Option>
+              <Option value="Paper-work">Paper work</Option>
+              <Option value="Content">Content</Option>
+            </Select>
+          </div>
           {/* hour */}
           <Input
             {...register("hour")}
@@ -93,14 +90,47 @@ const WorkSheet = () => {
 
           <button
             type="submit"
-            className="px-3 py-1 rounded-md bg-blue-gray-800"
+            className="px-3 py-1 text-white rounded-md bg-blue-gray-800"
           >
             Add
           </button>
         </div>
       </form>
       {/*  */}
-      <EmployeeForm></EmployeeForm>
+      <div className="mt-3">
+        <h2 className="text-lg">Work Data</h2>
+        <div className="mt-2">
+          <Card className="h-full w-full overflow-scroll">
+            <table className="w-full min-w-max table-auto text-left">
+              <thead>
+                <tr>
+                  {TABLE_HEAD.map((head) => (
+                    <th
+                      key={head}
+                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                    >
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal leading-none opacity-70"
+                      >
+                        {head}
+                      </Typography>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  work.map((sheet, index) => <EmployeeForm sheet={sheet} index={index} key={sheet._id}></EmployeeForm>)
+                }
+              </tbody>
+            </table>
+          </Card>
+        </div>
+      </div>
+
+      
     </div>
   );
 };

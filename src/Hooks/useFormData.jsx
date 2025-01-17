@@ -6,7 +6,6 @@ const useFormData = () => {
 //    tan stack query
 const axiosPublic = useAxios();
 const {user} = useContext(AuthContext);
-console.log(user);
 const {data: work=[], refetch} = useQuery({
 queryKey: ['work', user?.email],
 queryFn: async () => {
