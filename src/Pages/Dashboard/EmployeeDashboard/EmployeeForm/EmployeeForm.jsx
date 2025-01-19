@@ -1,9 +1,14 @@
 import { FaPenToSquare } from "react-icons/fa6";
-import { Input, Option, Select, Typography, Button,
+import {
+  Input,
+  Option,
+  Select,
+  Typography,
+  Button,
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter 
+  DialogFooter,
 } from "@material-tailwind/react";
 import { TiDelete } from "react-icons/ti";
 import useFormData from "../../../../Hooks/useFormData";
@@ -11,28 +16,26 @@ import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import useAxios from "../../../../Hooks/useAxios";
 import DatePicker from "react-datepicker";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../../Provider/AuthProvider";
 
-const EmployeeForm = ({sheet, index}) => {
-  const {user} = useContext(AuthContext);
+const EmployeeForm = ({ sheet, index }) => {
+  const { user } = useContext(AuthContext);
   const [startDate, setStartDate] = useState(new Date());
   const { register, handleSubmit, setValue, reset } = useForm();
   const [, refetch] = useFormData();
   const axiosPublic = useAxios();
   const [open, setOpen] = useState(false);
-  const {task, hour, date, _id} = sheet;
-
- 
+  const { task, hour, date, _id } = sheet;
 
   const handleDate = (date) => {
     console.log(date);
-    setStartDate(date)
-    setValue("date", date)
-  }
+    setStartDate(date);
+    setValue("date", date);
+  };
 
   const handleOpen = () => {
-    setOpen(!open)
+    setOpen(!open);
   };
 
   const handleDelete = (id) => {
@@ -61,95 +64,75 @@ const EmployeeForm = ({sheet, index}) => {
   };
 
   // handle update data
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     console.log(data);
-   if(user){
-    axiosPublic.put(`/employee-work-sheet/${_id}`, data)
-    .then(res => {
-      console.log(res.data);
-      if(res.data.modifiedCount > 0){
-        refetch()
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Your work sheet has been updated",
-          showConfirmButton: false,
-          timer: 1500
-        });
-        setOpen(false)
-      }
-    })
-   }
-  }
+    if (user) {
+      axiosPublic.put(`/employee-work-sheet/${_id}`, data).then((res) => {
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work sheet has been updated",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setOpen(false);
+        }
+      });
+    }
+  };
 
   return (
     <>
-                <tr className="even:bg-blue-gray-50/50">
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {index + 1}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {task}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {hour}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {date}
-                    </Typography>
-                  </td>
-                  <td className="p-4">
-                    <button onClick={handleOpen}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        <FaPenToSquare></FaPenToSquare>
-                      </Typography>
-                    </button>
-                  </td>
-                  <td className="p-4">
-                    <button
-                      onClick={() => handleDelete(_id)}
-                      className=""
-                    >
-                      <Typography color="blue-gray" className="font-normal">
-                        <TiDelete className="text-xl"></TiDelete>
-                      </Typography>
-                    </button>
-                  </td>
-                </tr>
-             
+      <tr className="even:bg-blue-gray-50/50">
+        <td className="p-4">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            {index + 1}
+          </Typography>
+        </td>
+        <td className="p-4">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            {task}
+          </Typography>
+        </td>
+        <td className="p-4">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            {hour}
+          </Typography>
+        </td>
+        <td className="p-4">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            {date}
+          </Typography>
+        </td>
+        <td className="p-4">
+          <button onClick={handleOpen}>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="font-normal"
+            >
+              <FaPenToSquare></FaPenToSquare>
+            </Typography>
+          </button>
+        </td>
+        <td className="p-4">
+          <button onClick={() => handleDelete(_id)} className="">
+            <Typography color="blue-gray" className="font-normal">
+              <TiDelete className="text-xl"></TiDelete>
+            </Typography>
+          </button>
+        </td>
+      </tr>
+
       {/* dialog */}
-      <div>
+      <>
         <Dialog open={open} handler={handleOpen}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogHeader>Update the date</DialogHeader><DialogBody>
-            
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <DialogHeader>Update the date</DialogHeader>
+            <DialogBody>
               {/* select task */}
               <div className="w-full mb-3">
                 <Select
@@ -157,7 +140,6 @@ const EmployeeForm = ({sheet, index}) => {
                   {...register("task", { required: true })}
                   onChange={(value) => setValue("task", value)}
                 >
-                  
                   <Option value="Sales">Sales</Option>
                   <Option value="Support">Support</Option>
                   <Option value="Paper-work">Paper work</Option>
@@ -183,25 +165,24 @@ const EmployeeForm = ({sheet, index}) => {
                   onChange={handleDate}
                 />
               </div>
-            
-          </DialogBody>
-          <DialogFooter>
-            <Button
-              variant="text"
-              color="red"
-              onClick={handleOpen}
-              className="mr-1"
-            >
-              <span>Close</span>
-            </Button>
-            <Button type="submit"  variant="gradient" color="green" >
-              <span>Update</span>
-            </Button>
-          </DialogFooter>
+            </DialogBody>
+            <DialogFooter>
+              <Button
+                variant="text"
+                color="red"
+                onClick={handleOpen}
+                className="mr-1"
+              >
+                Close
+              </Button>
+              <Button type="submit" variant="gradient" color="green">
+                Update
+              </Button>
+            </DialogFooter>
           </form>
         </Dialog>
-      </div>
       </>
+    </>
   );
 };
 

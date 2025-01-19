@@ -59,11 +59,9 @@ const SocialLogin = () => {
 
   return (
     <div className="flex items-center justify-center mt-3">
-      <button onClick={handleGoogleSignIn}>
-        <IconButton size="lg">
+        <IconButton onClick={handleGoogleSignIn} size="lg">
           <FaGoogle />
         </IconButton>
-      </button>
     </div>
   );
 };
