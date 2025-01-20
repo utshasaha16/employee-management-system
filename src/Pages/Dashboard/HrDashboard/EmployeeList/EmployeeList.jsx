@@ -1,87 +1,67 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { PencilIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import {
   Card,
   CardHeader,
-  Input,
   Typography,
-  Button,
   CardBody,
   Chip,
-  CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
-  Avatar,
-  IconButton,
-  Tooltip,
 } from "@material-tailwind/react";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../../../Hooks/useAxios";
+import useUserData from "../../../../Hooks/useUserData";
 
 const EmployeeList = () => {
-  const TABS = [
-    {
-      label: "All",
-      value: "all",
-    },
-    {
-      label: "Monitored",
-      value: "monitored",
-    },
-    {
-      label: "Unmonitored",
-      value: "unmonitored",
-    },
-  ];
-
-  const TABLE_HEAD = ["Name", "Email", "Status", "Bank Account", "Salary", "", ""];
-
-  const TABLE_ROWS = [
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-      name: "John Michael",
-      email: "john@creative-tim.com",
-      job: "Manager",
-      org: "Organization",
-      online: true,
-      date: "23/04/18",
-    },
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-      name: "Alexa Liras",
-      email: "alexa@creative-tim.com",
-      job: "Programator",
-      org: "Developer",
-      online: false,
-      date: "23/04/18",
-    },
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-      name: "Laurent Perrier",
-      email: "laurent@creative-tim.com",
-      job: "Executive",
-      org: "Projects",
-      online: false,
-      date: "19/09/17",
-    },
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-      name: "Michael Levi",
-      email: "michael@creative-tim.com",
-      job: "Programator",
-      org: "Developer",
-      online: true,
-      date: "24/12/08",
-    },
-    {
-      img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-      name: "Richard Gran",
-      email: "richard@creative-tim.com",
-      job: "Manager",
-      org: "Executive",
-      online: false,
-      date: "04/10/21",
-    },
-  ];
+ const [userData] = useUserData();
+ console.log(userData);
+  
+  
+  const TABLE_HEAD = ["Name", "Email", "Varified", "Bank Account", "Salary", "", ""];
+  // const TABLE_ROWS = [
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
+  //     name: "John Michael",
+  //     email: "john@creative-tim.com",
+  //     job: "Manager",
+  //     org: "Organization",
+  //     online: true,
+  //     date: "23/04/18",
+  //   },
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
+  //     name: "Alexa Liras",
+  //     email: "alexa@creative-tim.com",
+  //     job: "Programator",
+  //     org: "Developer",
+  //     online: false,
+  //     date: "23/04/18",
+  //   },
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
+  //     name: "Laurent Perrier",
+  //     email: "laurent@creative-tim.com",
+  //     job: "Executive",
+  //     org: "Projects",
+  //     online: false,
+  //     date: "19/09/17",
+  //   },
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
+  //     name: "Michael Levi",
+  //     email: "michael@creative-tim.com",
+  //     job: "Programator",
+  //     org: "Developer",
+  //     online: true,
+  //     date: "24/12/08",
+  //   },
+  //   {
+  //     img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
+  //     name: "Richard Gran",
+  //     email: "richard@creative-tim.com",
+  //     job: "Manager",
+  //     org: "Executive",
+  //     online: false,
+  //     date: "04/10/21",
+  //   },
+  // ];
 
   return (
     <Card className="h-full w-full p-3">
@@ -118,8 +98,8 @@ const EmployeeList = () => {
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(
-              ({ img, name, email, job, org, online, date }, index) => {
+            {(
+              ({ name, email, online, date }, index) => {
                 const isLast = index === TABLE_ROWS.length - 1;
                 const classes = isLast
                   ? "p-4"

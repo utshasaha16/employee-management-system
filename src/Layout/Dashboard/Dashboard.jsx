@@ -5,32 +5,15 @@ import { FaHome } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import { AuthContext } from "../../Provider/AuthProvider";
+import useUserData from "../../Hooks/useUserData";
 
 const Dashboard = () => {
-  const { user, loading } = useContext(AuthContext);
-  const [userRole, setUserRole] = useState(null);
-  const axiosPublic = useAxios();
-  console.log(userRole);
-
-  useEffect(() => {
-    if (user?.email) {
-      axiosPublic.get(`/users/${user.email}`)
-      .then((res) => {
-        setUserRole(res.data.role);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-        
-    }
-  }, [user?.email, axiosPublic]);
-
-  // TODO : Check if user is admin
-  const isAdmin = userRole === "Admin";
-  const isHR = userRole === "HR";
-  const isEmployee = userRole === "Employee";
-
+  const [userData] = useUserData();
+  console.log(userData.role);
+  const isAdmin = userData.role === "Admin";
+  const isHR = userData.role === "HR";
+  const isEmployee = userData.role === "Employee";
+  
   return (
     <div className="md:flex">
       <div className="w-68 min-h-full bg-gray-200">
@@ -40,6 +23,30 @@ const Dashboard = () => {
             <NavLink to="/">Home</NavLink>
           </li>
           <div className="divider"></div>
+          {isAdmin && (
+            <>
+              <li className="flex items-center gap-1 p-2">
+                <BiSpreadsheet></BiSpreadsheet>
+                <NavLink to="/dashboard/allEmployeeList">All emplyee List</NavLink>
+              </li>
+              <li className="flex items-center gap-1 p-2">
+                <MdPayment className="text-lg"></MdPayment>
+                <NavLink to="/dashboard/payroll">Payroll</NavLink>
+              </li>
+            </>
+          )}
+          {isHR && (
+            <>
+              <li className="flex items-center gap-1 p-2">
+                <BiSpreadsheet></BiSpreadsheet>
+                <NavLink to="/dashboard/employeeList">Emplyee List</NavLink>
+              </li>
+              <li className="flex items-center gap-1 p-2">
+                <MdPayment className="text-lg"></MdPayment>
+                <NavLink to="/dashboard/progress">Progress</NavLink>
+              </li>
+            </>
+          )}
           {isEmployee && (
             <>
               <li className="flex items-center gap-1 p-2">
@@ -51,30 +58,6 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/payment-history">
                   Payment History
                 </NavLink>
-              </li>
-            </>
-          )}
-          {isHR && (
-            <>
-              <li className="flex items-center gap-1 p-2">
-                <BiSpreadsheet></BiSpreadsheet>
-                <NavLink to="/dashboard/work-sheet">emplyee list</NavLink>
-              </li>
-              <li className="flex items-center gap-1 p-2">
-                <MdPayment className="text-lg"></MdPayment>
-                <NavLink to="/dashboard/payment-history">Progress</NavLink>
-              </li>
-            </>
-          )}
-          {isAdmin && (
-            <>
-              <li className="flex items-center gap-1 p-2">
-                <BiSpreadsheet></BiSpreadsheet>
-                <NavLink to="/dashboard/employeeList">All emplyee list</NavLink>
-              </li>
-              <li className="flex items-center gap-1 p-2">
-                <MdPayment className="text-lg"></MdPayment>
-                <NavLink to="/dashboard/payroll">payroll</NavLink>
               </li>
             </>
           )}

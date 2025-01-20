@@ -7,10 +7,12 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Secret from "../Pages/Secret/Secret";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Layout/Dashboard/Dashboard";
-import EmployeeList from "../Pages/Dashboard/EmployeeList/EmployeeList";
-import PayRoll from "../Pages/Dashboard/PayRoll/PayRoll";
+import EmployeeList from "../Pages/Dashboard/HrDashboard/EmployeeList/EmployeeList";
+import PayRoll from "../Pages/Dashboard/AdminDashboard/PayRoll/PayRoll";
 import WorkSheet from "../Pages/Dashboard/EmployeeDashboard/WorkSheet/WorkSheet";
 import PaymentHistory from "../Pages/Dashboard/EmployeeDashboard/PaymentHistory/PaymentHistory";
+import Progress from "../Pages/Dashboard/HrDashboard/Progress/Progress";
+import AllEmployeeList from "../Pages/Dashboard/AdminDashboard/AllEmployeeList/AllEmployeeList";
 
 export const router = createBrowserRouter([
   {
@@ -42,23 +44,47 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
-
-        // admin routes
+      // admin routes
       {
-        path: "employeeList",
-        element: <EmployeeList></EmployeeList>,
+        path: "allEmployeeList",
+        element: (
+          <PrivateRoute>
+            <AllEmployeeList></AllEmployeeList>
+          </PrivateRoute>
+        ),
       },
       {
         path: "payroll",
-        element: <PayRoll></PayRoll>,
+        element: (
+          <PrivateRoute>
+            <PayRoll></PayRoll>
+          </PrivateRoute>
+        ),
       },
 
       // HR routes
-
-
-
+      {
+        path: "employeeList",
+        element: (
+          <PrivateRoute>
+            <EmployeeList></EmployeeList>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "progress",
+        element: (
+          <PrivateRoute>
+            <Progress></Progress>
+          </PrivateRoute>
+        ),
+      },
 
       // employee routes
       {
@@ -77,8 +103,6 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-
-      
     ],
   },
 ]);

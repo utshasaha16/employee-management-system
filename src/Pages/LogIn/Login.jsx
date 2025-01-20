@@ -54,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen p-4">
+    <div className="flex items-center justify-center min-h-screen p-4">
       <Card color="transparent" shadow={false}>
         <Typography variant="h4" color="blue-gray">
           Log In
