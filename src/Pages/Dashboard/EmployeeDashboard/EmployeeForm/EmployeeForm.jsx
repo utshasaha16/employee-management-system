@@ -37,7 +37,7 @@ const EmployeeForm = ({ sheet, index }) => {
   const handleOpen = () => {
     setOpen(!open);
   };
-
+  // handle delete
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -78,6 +78,7 @@ const EmployeeForm = ({ sheet, index }) => {
             showConfirmButton: false,
             timer: 1500,
           });
+          reset()
           setOpen(false);
         }
       });
@@ -86,7 +87,7 @@ const EmployeeForm = ({ sheet, index }) => {
 
   return (
     <>
-      <tr className="even:bg-blue-gray-50/50">
+      <tr key={index} className="even:bg-blue-gray-50/50">
         <td className="p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             {index + 1}
@@ -112,7 +113,7 @@ const EmployeeForm = ({ sheet, index }) => {
             <Typography
               variant="small"
               color="blue-gray"
-              className="font-normal"
+              className="font-normal text-green-500"
             >
               <FaPenToSquare></FaPenToSquare>
             </Typography>
@@ -120,7 +121,7 @@ const EmployeeForm = ({ sheet, index }) => {
         </td>
         <td className="p-4">
           <button onClick={() => handleDelete(_id)} className="">
-            <Typography color="blue-gray" className="font-normal">
+            <Typography color="blue-gray" className="font-normal text-red-500">
               <TiDelete className="text-xl"></TiDelete>
             </Typography>
           </button>
@@ -128,8 +129,7 @@ const EmployeeForm = ({ sheet, index }) => {
       </tr>
 
       {/* dialog */}
-      <>
-        <Dialog open={open} handler={handleOpen}>
+      <Dialog open={open} handler={handleOpen}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <DialogHeader>Update the date</DialogHeader>
             <DialogBody>
@@ -181,7 +181,6 @@ const EmployeeForm = ({ sheet, index }) => {
             </DialogFooter>
           </form>
         </Dialog>
-      </>
     </>
   );
 };

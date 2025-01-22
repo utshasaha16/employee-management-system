@@ -5,16 +5,13 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 import useAllUser from "../../../../Hooks/useAllUser";
-import Loading from "../../../../component/Loading/Loading";
 import EmployeeTableRow from "../EmployeeTableRow/EmployeeTableRow";
+import useAxios from "../../../../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const EmployeeList = () => {
-  const [allUser, , isLoading] = useAllUser();
-  console.log(allUser);
-
-  // filter by role
-  const employees = allUser.filter((user) => user.role === "Employee");
-  console.log(employees);
+  const axiosPublic = useAxios();
+  const [allUser, refetch] = useAllUser();
 
   const TABLE_HEAD = [
     "Name",
@@ -22,13 +19,33 @@ const EmployeeList = () => {
     "Varified",
     "Bank Account",
     "Salary",
-    "",
-    "",
+    "Action",
+    "Details",
   ];
+  // filter by role
+  const employees = allUser.filter((user) => user.role === "Employee");
+  console.log(employees.map(e => e._id));
 
-  {
-    isLoading && <Loading></Loading>;
-  }
+  // handle varified
+  const handleVarified = async (id, varified) => {
+    console.log(id);
+    const newStatus = !varified;
+
+    await axiosPublic
+      .patch(`/users/${id}`, { varified: newStatus })
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+      });
+  };
 
   return (
     <Card className="h-full w-full p-3">
@@ -66,7 +83,13 @@ const EmployeeList = () => {
           </thead>
           <tbody>
             {employees.map((employee) => {
-              return <EmployeeTableRow employee={employee} key={employee._id}></EmployeeTableRow>;
+              return (
+                <EmployeeTableRow
+                  employee={employee}
+                  handleVarified={handleVarified}
+                  key={employee._id}
+                ></EmployeeTableRow>
+              );
             })}
           </tbody>
         </table>

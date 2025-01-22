@@ -20,6 +20,9 @@ const SocialLogin = () => {
           name: result.user?.displayName,
           email: result.user?.email,
           role: "Employee",
+          salary: 100,
+          accountNO: 4000056655665556,
+          status: "Active"
         };
         axiosPublic
           .post('/users', userInfo)

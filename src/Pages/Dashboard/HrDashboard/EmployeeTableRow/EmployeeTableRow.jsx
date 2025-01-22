@@ -1,29 +1,9 @@
 import { Typography } from "@material-tailwind/react";
-import { useState } from "react";
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
-import useAxios from "../../../../Hooks/useAxios";
 
-const EmployeeTableRow = ({ employee }) => {
-    const axiosPublic = useAxios()
+const EmployeeTableRow = ({ employee, handleVarified }) => {
     const { name, email, varified, accountNO, salary, _id } = employee;
-    const [isVerified, setIsVarified] = useState(varified)
-  
-
-    const handleVarified =async (id) => {
-        console.log(id);
-        const newStatus = !isVerified;
-
-         axiosPublic.patch(`/users/${id}`, {varified: newStatus})
-        .then(res => {
-            if(res.data.modifiedCount > 0){
-                setIsVarified(newStatus)
-            }
-                
-            console.log(res.data);
-        })
-        
-    }
-
+    
   return (
     <tr>
       <td className="p-4 border-b border-blue-gray-50">
@@ -51,9 +31,9 @@ const EmployeeTableRow = ({ employee }) => {
         </div>
       </td>
       <td className="p-4 border-b border-blue-gray-50">
-        <button onClick={() => {handleVarified(_id)}}>
+        <button onClick={() => {handleVarified(_id, varified)}}>
             {
-                !isVerified ? <>
+                !varified ? <>
                  <BsFillXCircleFill className="text-red-500"></BsFillXCircleFill>
                 
                 </> : <>
