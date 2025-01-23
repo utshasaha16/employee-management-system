@@ -4,8 +4,8 @@ import "swiper/css/navigation";
 import "swiper/css";
 import { Parallax, Pagination, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "../Testimonials/style.css";
-import testimonialImage from "../../../../assets/banner/testimonialImage.jpg";
+import "./style.css";
+import testimonialImage from "../../../assets/banner/testimonialImage.jpg";
 
 const Testimonials = () => {
   return (
