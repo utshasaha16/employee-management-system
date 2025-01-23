@@ -34,7 +34,7 @@ const NoteSection = () => {
             manage salaries, and maintain contracts seamlessly.
           </p>
         </div>
-        <div className="lg:pl-6 pt-3">
+        <div>
           <img className="rounded-lg" src={noteImage2} alt="" />
         </div>
       </section>

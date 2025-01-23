@@ -1,5 +1,6 @@
 import HomeSlider from "../../../component/HomeSlider/HomeSlider";
 import NoteSection from "../noteSection/NoteSection";
+import QuestionSection from "../QuestionSection/QuestionSection";
 import Services from "../Services/Services";
 import Testimonials from "../Testimonials/Testimonials";
 
@@ -23,6 +24,10 @@ export const Home = () => {
         {/* note-section */}
         <section className="mt-10">
           <NoteSection></NoteSection>
+        </section>
+        {/* questions section */}
+        <section className="mt-10">
+          <QuestionSection></QuestionSection>
         </section>
       </main>
     </>
