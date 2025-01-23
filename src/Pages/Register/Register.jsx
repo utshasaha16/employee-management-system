@@ -28,7 +28,7 @@ const Register = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const axiosPublic = useAxios()
+  const axiosPublic = useAxios();
 
   // handle form submission
   const onSubmit = async (data) => {
@@ -36,15 +36,11 @@ const Register = () => {
 
     // get image file and upload to imagebb
     const imageFile = { image: data.image[0] };
-    const res = await axios.post(
-      `${image_hosting_api}`,
-      imageFile,
-      {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      }
-    );
+    const res = await axios.post(`${image_hosting_api}`, imageFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
 
     const image_url = res.data.data.display_url;
     console.log(image_url);
@@ -241,15 +237,15 @@ const Register = () => {
               className="file-input w-full max-w-xs"
             />
           </div>
-          <Button type="submit" className="mt-6" fullWidth>
+          <Button type="submit" className="mt-6 bg-[#557C56]" fullWidth>
             Register
           </Button>
-          <Link to="/login" className="font-medium text-gray-900">
-          <Typography color="gray" className="mt-4 text-center font-normal">
+          <Typography color="gray" className="mt-4 text-center font-normal text-gray-900">
             Already have an account?{" "}
-            Sign In
-          </Typography>
+            <Link to="/login" className="font-medium ">
+              Sign In
             </Link>
+          </Typography>
         </form>
         <SocialLogin></SocialLogin>
       </Card>

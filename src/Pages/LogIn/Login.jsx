@@ -94,12 +94,12 @@ const Login = () => {
             />
           </div>
 
-          <Button type="submit" className="mt-6" fullWidth>
+          <Button type="submit" className="mt-6 p-3 bg-[#557C56]" fullWidth>
             log in
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Dont't have an account?{" "}
-            <Link to="/register" className="font-medium text-gray-900">
+            <Link to="/register" className="font-medium text-gray-900 ">
               Register
             </Link>
           </Typography>

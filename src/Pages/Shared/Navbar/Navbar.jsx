@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import logo from "../../../assets/icon/icon-logo.png.png";
-
 import React, { useContext, useEffect, useState } from "react";
 import {
   Navbar as MtNavbar,
@@ -78,7 +76,6 @@ export const Navbar = () => {
       <MtNavbar className="shadow-none h-max max-w-full rounded-none px-4 py-2 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <div className="flex items-center gap-4">
-            <img className="w-10" src={logo} alt="" />
             <Link to="/">
               <Typography
                 className="mr-4 cursor-pointer py-1.5 font-medium"
@@ -107,16 +104,16 @@ export const Navbar = () => {
                     <Button
                       variant="text"
                       size="sm"
-                      className="hidden lg:inline-block"
+                      className="hidden lg:inline-block bg-[#557C56] text-white hover:text-black"
                     >
                       <span>Log In</span>
                     </Button>
                   </Link>
                   <Link to="/register">
                     <Button
-                      variant="gradient"
+                      // variant="gradient"
                       size="sm"
-                      className="hidden lg:inline-block"
+                      className="hidden lg:inline-block bg-[#557C56] text-white hover:text-black hover:bg-white"
                     >
                       <span>Register</span>
                     </Button>
@@ -167,12 +164,12 @@ export const Navbar = () => {
           {navList}
           <div className="flex items-center gap-x-1">
             <Link to="/login">
-              <Button fullWidth variant="text" size="sm" className="">
+              <Button fullWidth variant="text" size="sm" className="bg-[#557C56] text-white hover:text-black">
                 <span>Log In</span>
               </Button>
             </Link>
             <Link to="/register">
-              <Button fullWidth variant="gradient" size="sm" className="">
+              <Button fullWidth size="sm" className="bg-[#557C56] text-white hover:text-black hover:bg-white">
                 <span>Register</span>
               </Button>
             </Link>

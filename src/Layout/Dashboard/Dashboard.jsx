@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
 import { BiSpreadsheet } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
 import { FaHome } from "react-icons/fa";
@@ -8,11 +8,18 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import useUserData from "../../Hooks/useUserData";
 
 const Dashboard = () => {
+  const location = useLocation()
   const [userData] = useUserData();
   console.log(userData.role);
   const isAdmin = userData.role === "Admin";
   const isHR = userData.role === "HR";
   const isEmployee = userData.role === "Employee";
+
+  const defaultRoute = isAdmin ? "/dashboard/allEmployeeList" : isHR ? "/dashboard/employeeList" : isEmployee ? "/dashboard/work-sheet" : "/"
+
+  if(location.pathname === "/dashboard"){
+    return <Navigate to={defaultRoute} state={{from: location}} replace></Navigate>
+  }
   
   return (
     <div className="md:flex">

@@ -5,7 +5,7 @@ import bannerImage3 from "../../assets/banner/bannerImage-3.jpg";
 
 const HomeSlider = () => {
   return (
-    <Carousel className="rounded-xl" ty>
+    <Carousel >
       <div className="relative h-full w-full">
         <img
           src={bannerImage1}

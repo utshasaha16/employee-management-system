@@ -6,7 +6,7 @@ const Services = () => {
     <div className="grid md:grid-cols-3 grid-cols-1 md:gap-2">
       <Card className="mt-6">
         <CardBody>
-            <FaRegNewspaper className="text-7xl p-1 text-light-blue-700"></FaRegNewspaper>
+            <FaRegNewspaper className="text-7xl p-1 text-[#33372C]"></FaRegNewspaper>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Performance Monitoring
           </Typography>
@@ -18,7 +18,7 @@ const Services = () => {
       </Card>
       <Card className="mt-6">
         <CardBody>
-            <FaRegWindowMaximize className="text-7xl p-1 text-light-blue-700"></FaRegWindowMaximize>
+            <FaRegWindowMaximize className="text-7xl p-1 text-[#33372C]"></FaRegWindowMaximize>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Payroll Integration
           </Typography>
@@ -30,7 +30,7 @@ const Services = () => {
       </Card>
       <Card className="mt-6">
         <CardBody>
-            <FaRegRectangleList className="text-7xl p-1 text-light-blue-700"></FaRegRectangleList>
+            <FaRegRectangleList className="text-7xl p-1 text-[#33372C]"></FaRegRectangleList>
           <Typography variant="h5" color="blue-gray" className="mb-2">
             Reporting and Analytics
           </Typography>
