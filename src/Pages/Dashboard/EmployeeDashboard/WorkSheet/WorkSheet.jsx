@@ -38,6 +38,7 @@ const WorkSheet = () => {
       console.log(result.data);
       if (result.data.insertedId) {
         reset();
+        refetch();
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -45,7 +46,6 @@ const WorkSheet = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        refetch();
       }
     });
   };

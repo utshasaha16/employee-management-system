@@ -90,9 +90,8 @@ const AllEmployeeRow = ({ employee, refetch, handleMakeHr }) => {
                 }}
               >
                 <Typography
-                  as="a"
                   variant="small"
-                  className="font-medium, text-red-500"
+                  className="font-medium text-red-500"
                 >
                   fire
                 </Typography>

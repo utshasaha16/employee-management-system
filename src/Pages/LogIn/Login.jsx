@@ -99,7 +99,7 @@ const Login = () => {
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Dont't have an account?{" "}
-            <Link to="/register" className="font-medium text-gray-900 ">
+            <Link to="/register" className="font-medium text-[#FF885B] ">
               Register
             </Link>
           </Typography>

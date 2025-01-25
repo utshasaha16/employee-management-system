@@ -24,7 +24,6 @@ const EmployeeList = () => {
   ];
   // filter by role
   const employees = allUser.filter((user) => user.role === "Employee");
-  console.log(employees.map(e => e._id));
 
   // handle varified
   const handleVarified = async (id, varified) => {
@@ -39,16 +38,26 @@ const EmployeeList = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your work has been saved",
+            title: newStatus ? "Verified" : "Unverified",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
         }
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Failed to update status",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
 
   return (
-    <Card className="h-full w-full p-3">
+    <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
         <div className=" flex items-center justify-between gap-8">
           <div>

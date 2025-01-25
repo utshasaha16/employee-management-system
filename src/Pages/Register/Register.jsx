@@ -94,7 +94,11 @@ const Register = () => {
       console.log(employee);
 
       // post user data to the database
-      axiosPublic.post("/users", employee);
+      await axiosPublic.post("/users", employee)
+      .then(res => {
+        console.log(res);
+      })
+
     }
   };
 
@@ -242,7 +246,7 @@ const Register = () => {
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal text-gray-900">
             Already have an account?{" "}
-            <Link to="/login" className="font-medium ">
+            <Link to="/login" className="font-medium text-[#FF885B]">
               Sign In
             </Link>
           </Typography>
