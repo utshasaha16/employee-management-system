@@ -41,7 +41,7 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
     };
     console.log(employeeData);
 
-    axiosSecure.post("/employee-pay-data", employeeData).then((res) => {
+    axiosSecure.post("/employee-pay-request", employeeData).then((res) => {
       console.log(res.data);
       if (res.data.insertedId) {
         Swal.fire({
@@ -50,7 +50,8 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
           title: "Payment request has been send by Admin",
           showConfirmButton: false,
           timer: 1500,
-        });
+        })
+        handleOpen()
       }
     });
   };
@@ -123,7 +124,7 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
           )}
         </td>
         <td className="p-4 border-b border-blue-gray-50">
-          <Link to="/dashboard/chart">
+          <Link to={`/dashboard/employeeDetails/${_id}`}>
             <button className="px-2 py-1 rounded-sm bg-blue-gray-700 text-white">
               Details
             </button>
@@ -238,7 +239,6 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
             <Button
               type="submit"
               className="ml-auto bg-green-500 hover:bg-green-600 text-white"
-              onClick={handleOpen}
             >
               pay
             </Button>

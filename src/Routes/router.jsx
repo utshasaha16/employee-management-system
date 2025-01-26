@@ -13,8 +13,7 @@ import WorkSheet from "../Pages/Dashboard/EmployeeDashboard/WorkSheet/WorkSheet"
 import PaymentHistory from "../Pages/Dashboard/EmployeeDashboard/PaymentHistory/PaymentHistory";
 import Progress from "../Pages/Dashboard/HrDashboard/Progress/Progress";
 import AllEmployeeList from "../Pages/Dashboard/AdminDashboard/AllEmployeeList/AllEmployeeList";
-import Chart from "../Pages/Dashboard/HrDashboard/Chart/Chart";
-
+import EmployeeDetails from "../Pages/Dashboard/HrDashboard/EmployeeDetails/EmployeeDetails";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -87,10 +86,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "chart",
+        path: "employeeDetails/:id",
         element: (
           <PrivateRoute>
-            <Chart></Chart>
+            <EmployeeDetails></EmployeeDetails>
           </PrivateRoute>
         ),
       },

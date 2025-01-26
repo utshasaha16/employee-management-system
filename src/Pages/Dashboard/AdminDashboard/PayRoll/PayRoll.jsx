@@ -10,7 +10,7 @@ const PayRoll = () => {
   const { data: employeePayRequest = [] } = useQuery({
     queryKey: ["payData"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/employee-pay-data");
+      const res = await axiosSecure.get("/employee-pay-request");
       return res.data;
     },
   });

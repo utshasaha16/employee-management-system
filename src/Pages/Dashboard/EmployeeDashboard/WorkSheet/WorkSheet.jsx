@@ -18,6 +18,8 @@ const WorkSheet = () => {
   const TABLE_HEAD = ["Task no", "Task", "Hour", "Date", "Update", "Delete"];
   const [work, refetch] = useFormData();
 
+  console.log(work);
+
   const handleDate = (date) => {
     console.log(date);
     setStartDate(date);
