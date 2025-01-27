@@ -54,17 +54,7 @@ export const Navbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link className="flex items-center">Contact Us</Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <Link to="/secret" className="flex items-center">
-          secret
-        </Link>
+        <Link to="/contact" className="flex items-center">Contact Us</Link>
       </Typography>
     </ul>
   );

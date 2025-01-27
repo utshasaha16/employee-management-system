@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 import { Form, Link } from "react-router-dom";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
@@ -18,9 +18,10 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const { name, email, varified, accountNO, salary, _id, designation, image } =
+  const { name, email, varified, accountNO, salary, _id, designation } =
     employee;
   const [open, setOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
@@ -33,8 +34,8 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
     const employeeData = {
       employeName: name,
       employeeSalary: salary,
+      email: email,
       designation: designation,
-      employeeImage: image,
       month: data.month,
       year: data.year,
       status: "Pending",
@@ -51,7 +52,9 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
           showConfirmButton: false,
           timer: 1500,
         })
+        reset()
         handleOpen()
+        
       }
     });
   };
@@ -124,7 +127,7 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
           )}
         </td>
         <td className="p-4 border-b border-blue-gray-50">
-          <Link to={`/dashboard/employeeDetails/${_id}`}>
+          <Link to={`/dashboard/employeeDetails/${email}`}>
             <button className="px-2 py-1 rounded-sm bg-blue-gray-700 text-white">
               Details
             </button>
@@ -137,10 +140,10 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
         <Form onSubmit={handleSubmit(handlePay)}>
           <DialogHeader className="relative m-0 block">
             <Typography variant="h4" color="blue-gray">
-              Link Payment Card
+              Send Payment Request
             </Typography>
             <Typography className="mt-1 font-normal text-gray-600">
-              Complete the form below with your card details to link your card.
+              Complete the form below with your Payment Request.
             </Typography>
           </DialogHeader>
           <DialogBody className="space-y-4 pb-6">

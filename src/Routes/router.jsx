@@ -4,7 +4,6 @@ import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/LogIn/Login";
 import Register from "../Pages/Register/Register";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
-import Secret from "../Pages/Secret/Secret";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import EmployeeList from "../Pages/Dashboard/HrDashboard/EmployeeList/EmployeeList";
@@ -14,6 +13,7 @@ import PaymentHistory from "../Pages/Dashboard/EmployeeDashboard/PaymentHistory/
 import Progress from "../Pages/Dashboard/HrDashboard/Progress/Progress";
 import AllEmployeeList from "../Pages/Dashboard/AdminDashboard/AllEmployeeList/AllEmployeeList";
 import EmployeeDetails from "../Pages/Dashboard/HrDashboard/EmployeeDetails/EmployeeDetails";
+import Contact from "../Pages/Contact/Contact";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,12 +25,8 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "secret",
-        element: (
-          <PrivateRoute>
-            <Secret></Secret>
-          </PrivateRoute>
-        ),
+        path: "contact",
+        element: <Contact></Contact>
       },
       {
         path: "login",
@@ -86,7 +82,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "employeeDetails/:id",
+        path: "employeeDetails/:email",
         element: (
           <PrivateRoute>
             <EmployeeDetails></EmployeeDetails>
