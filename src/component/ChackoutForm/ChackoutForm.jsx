@@ -22,13 +22,13 @@ const ChackoutForm = () => {
 
 
 
-  useEffect(() => {
-    axiosSecure.post("/create-payment-intent", )
-      .then((res) => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
-  }, [axiosSecure]);
+  // useEffect(() => {
+  //   axiosSecure.post("/create-payment-intent", )
+  //     .then((res) => {
+  //       console.log(res.data.clientSecret);
+  //       setClientSecret(res.data.clientSecret);
+  //     });
+  // }, [axiosSecure]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

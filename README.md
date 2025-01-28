@@ -1,8 +1,51 @@
-# React + Vite
+# Employee Management Syestems
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## [Live Site Link]
 
-Currently, two official plugins are available:
+(https://product-recommendation-da853.web.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Admin Email/Pass
+
+utshasaha12345@gmail.com
+123456
+
+
+### Key Features
+
+. API Integration
+
+. User-Friendly Interface
+
+. Dynamic Rendering:
+
+. Search Functionality
+
+### Technologies Used
+
+. Frontend: React
+
+. Backend: API Endpoint (assumed to be Node.js/Express)
+
+. Styling: Tailwind CSS
+
+. HTTP Client: Axios
+
+### NPM Packages Used
+
+. swiper
+
+. sweetalert2
+
+. react-router-dom
+
+. react-icons
+
+. material tailwind react
+
+. tanstack react query
+
+. react hook form
+
+. react helmet async
+
+. react datepicker
