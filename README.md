@@ -2,7 +2,7 @@
 
 ## [Live Site Link]
 
-(https://product-recommendation-da853.web.app/)
+(https://employee-management-52c77.firebaseapp.com/)
 
 ### Admin Email/Pass
 
