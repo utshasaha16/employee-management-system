@@ -14,6 +14,7 @@ import Progress from "../Pages/Dashboard/HrDashboard/Progress/Progress";
 import AllEmployeeList from "../Pages/Dashboard/AdminDashboard/AllEmployeeList/AllEmployeeList";
 import EmployeeDetails from "../Pages/Dashboard/HrDashboard/EmployeeDetails/EmployeeDetails";
 import Contact from "../Pages/Contact/Contact";
+import Payment from "../Pages/Dashboard/AdminDashboard/Payment/Payment";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
             <PayRoll></PayRoll>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>
       },
 
       // HR routes

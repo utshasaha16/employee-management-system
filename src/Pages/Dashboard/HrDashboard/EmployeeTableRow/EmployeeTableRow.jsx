@@ -32,6 +32,7 @@ const EmployeeTableRow = ({ employee, handleVarified }) => {
 
   const handlePay = (data) => {
     const employeeData = {
+      employeId : _id,
       employeName: name,
       employeeSalary: salary,
       email: email,

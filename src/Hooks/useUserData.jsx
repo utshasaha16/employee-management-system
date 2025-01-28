@@ -16,7 +16,7 @@ const useUserData = () => {
       return res.data;
     },
   });
-  return [userData];
+  return [userData, isLoading];
 };
 
 export default useUserData;

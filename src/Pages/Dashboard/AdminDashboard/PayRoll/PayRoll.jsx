@@ -1,22 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
-import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { Button, Card, Input, Typography } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
+import useEmployeePayRequest from "../../../../Hooks/useEmployeePayRequest";
 
 const TABLE_HEAD = ["Name", "Salary", "Month", "Year", "Payment Date", ""];
 
 const PayRoll = () => {
-  const axiosSecure = useAxiosSecure();
-  const { data: employeePayRequest = [] } = useQuery({
-    queryKey: ["payData"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/employee-pay-request");
-      return res.data;
-    },
-  });
+  const [employeePayRequest] = useEmployeePayRequest();
   return (
     <>
-      <h2>pay Roll {employeePayRequest.length}</h2>
+      <div className="p-3 text-gray-700">
+        <h2 className="mb-2 font-bold ">Employee Payments</h2>
+        <p className="text-xs">
+          See Information about all varified Employees and HR
+        </p>
+      </div>
       <Card className="h-full w-full overflow-scroll">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
@@ -51,7 +48,7 @@ const PayRoll = () => {
                       <Typography
                         variant="small"
                         color="blue-gray"
-                        className="font-normal"
+                        className="font-normal uppercase"
                       >
                         {employeName}
                       </Typography>
@@ -84,15 +81,17 @@ const PayRoll = () => {
                       </Typography>
                     </td>
                     <td className={classes}>
-                    <Input type="number" label="Payment Date" />
+                      <Input type="number" label="Payment Date" />
                     </td>
                     <td className={`${classes} bg-blue-gray-50/50`}>
-                      <Button
-                        className="bg-green-500 hover:bg-green-600 text-white"
-                        variant="text"
-                      >
-                        Pay
-                      </Button>
+                      <Link to="/dashboard/payment">
+                        <Button
+                          className="bg-green-500 hover:bg-green-600 text-white"
+                          variant="text"
+                        >
+                          Pay
+                        </Button>
+                      </Link>
                     </td>
                   </tr>
                 );

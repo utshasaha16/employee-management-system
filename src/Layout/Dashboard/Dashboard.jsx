@@ -11,9 +11,7 @@ const Dashboard = () => {
   const [userData, isLoading] = useUserData();
   console.log(userData);
   console.log(userData.role);
-  if (!isLoading) {
-    <Loading></Loading>;
-  }
+  
   const isAdmin = userData.role === "Admin";
   const isHR = userData.role === "HR";
   const isEmployee = userData.role === "Employee";
@@ -30,6 +28,10 @@ const Dashboard = () => {
     return (
       <Navigate to={defaultRoute} state={{ from: location }} replace></Navigate>
     );
+  }
+
+  if (!isLoading) {
+    <Loading></Loading>;
   }
 
   return (

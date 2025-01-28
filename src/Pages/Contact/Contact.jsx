@@ -6,6 +6,7 @@ import {
   IconButton,
   Button
 } from "@material-tailwind/react";
+import { Helmet } from "react-helmet-async";
 import { FaFacebookF, FaLinkedin } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
 import { IoLogoTwitter } from "react-icons/io";
@@ -13,7 +14,10 @@ import { Link } from "react-router-dom";
 
 const Contact = () => {
   return (
-    <div>
+    <>
+    <Helmet>
+      <title>Employee | Contact Us</title>
+    </Helmet>
       <section className="bg-blue-gray-800  text-white space-y-7 p-4 flex flex-col justify-center min-h-screen">
         <h1 className="text-6xl">Contact Us</h1>
         <p>
@@ -34,7 +38,7 @@ const Contact = () => {
       <section className="pt-20 ">
         <div className="md:flex gap-4 bg-base-100 shadow-2xl rounded-xl">
           {/* messege section */}
-          <div className="w-2/4 p-10">
+          <div className="md:w-2/4 w-full md:p-10 p-5">
             <h2 className="mb-6 text-2xl font-semibold">
               Ask us anything here
             </h2>
@@ -83,10 +87,10 @@ const Contact = () => {
               </Typography>
               <Textarea size="lg" label="Leave your message" />
             </div>
-            <Button className="mt-3">send message</Button>
+            <Button className="mt-3 bg-[#FF885B]">send message</Button>
           </div>
           {/* contact info */}
-          <div className="p-10 w-2/4">
+          <div className="md:p-10 p-5 md:w-2/4 w-full">
             <h2 className="mb-6 text-2xl font-semibold">Contact Info</h2>
             <div>
               <p className="uppercase hq font-semibold text-black text-sm">
@@ -137,7 +141,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

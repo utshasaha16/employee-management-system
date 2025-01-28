@@ -39,7 +39,7 @@ const AllEmployeeRow = ({ employee, refetch, handleMakeHr }) => {
     <>
       <tr className="even:bg-blue-gray-50/50">
         <td className="p-4">
-          <Typography variant="small" color="blue-gray" className="font-normal">
+          <Typography variant="small" color="blue-gray" className="font-normal uppercase">
             {name}
           </Typography>
         </td>
@@ -93,7 +93,7 @@ const AllEmployeeRow = ({ employee, refetch, handleMakeHr }) => {
                   variant="small"
                   className="font-medium text-red-500"
                 >
-                  fire
+                  Fire
                 </Typography>
               </button>
             </>
