@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import {
   Navbar as MtNavbar,
@@ -13,6 +13,7 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import "./navbar.css";
 
 export const Navbar = () => {
   const [openNav, setOpenNav] = useState(false);
@@ -36,7 +37,7 @@ export const Navbar = () => {
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-4">
       <Typography variant="small" color="blue-gray" className="p-1 font-normal">
-        <Link to="/">Home</Link>
+        <NavLink to="/">Home</NavLink>
       </Typography>
       <Typography
         as="li"
@@ -44,9 +45,9 @@ export const Navbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/dashboard" className="flex items-center">
+        <NavLink to="/dashboard" className="flex items-center">
           Dashboard
-        </Link>
+        </NavLink>
       </Typography>
       <Typography
         as="li"
@@ -54,9 +55,9 @@ export const Navbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/contact" className="flex items-center">
+        <NavLink to="/contact" className="flex items-center">
           Contact Us
-        </Link>
+        </NavLink>
       </Typography>
     </ul>
   );
