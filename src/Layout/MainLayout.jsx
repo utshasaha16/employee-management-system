@@ -8,7 +8,7 @@ const MainLayout = () => {
     const isLoginPage = location.pathname.includes('login',) || location.pathname.includes('register');
     return (
         <div>
-            {isLoginPage || <Navbar></Navbar>}
+            <div className='fixed z-10 container'>{isLoginPage || <Navbar></Navbar>}</div>
             <Outlet></Outlet>
             {isLoginPage || <Footer></Footer>}
         </div>

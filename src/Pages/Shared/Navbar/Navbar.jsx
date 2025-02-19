@@ -34,7 +34,7 @@ export const Navbar = () => {
   }, []);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-4">
       <Typography variant="small" color="blue-gray" className="p-1 font-normal">
         <Link to="/">Home</Link>
       </Typography>
@@ -54,14 +54,16 @@ export const Navbar = () => {
         color="blue-gray"
         className="p-1 font-normal"
       >
-        <Link to="/contact" className="flex items-center">Contact Us</Link>
+        <Link to="/contact" className="flex items-center">
+          Contact Us
+        </Link>
       </Typography>
     </ul>
   );
 
   return (
     <div>
-      <MtNavbar className="shadow-none h-max max-w-full rounded-none px-4 py-2 lg:py-4">
+      <MtNavbar className="shadow-md bg-white rounded-none px-4 py-2 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <div className="flex items-center gap-4">
             <Link to="/">
@@ -101,7 +103,11 @@ export const Navbar = () => {
                             fill="#90A4AE"
                           />
                         </svg>
-                        <Typography onClick={handleLogOut} variant="small" className="font-medium">
+                        <Typography
+                          onClick={handleLogOut}
+                          variant="small"
+                          className="font-medium"
+                        >
                           Sign Out
                         </Typography>
                       </MenuItem>
@@ -170,30 +176,32 @@ export const Navbar = () => {
             </IconButton>
           </div>
         </div>
-        <Collapse open={openNav}>
-          {navList}
-          <div className="flex items-center gap-x-1">
-            <Link to="/login">
-              <Button
-                fullWidth
-                variant="text"
-                size="sm"
-                className="bg-[#557C56] text-white hover:text-black"
-              >
-                <span>Log In</span>
-              </Button>
-            </Link>
-            <Link to="/register">
-              <Button
-                fullWidth
-                size="sm"
-                className="bg-[#557C56] text-white hover:text-black hover:bg-white"
-              >
-                <span>Register</span>
-              </Button>
-            </Link>
-          </div>
-        </Collapse>
+        <div>
+          <Collapse open={openNav}>
+            {navList}
+            <div className="flex items-center gap-x-1">
+              <Link to="/login">
+                <Button
+                  fullWidth
+                  variant="text"
+                  size="sm"
+                  className="bg-[#557C56] text-white hover:text-black"
+                >
+                  <span>Log In</span>
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button
+                  fullWidth
+                  size="sm"
+                  className="bg-[#557C56] text-white hover:text-black hover:bg-white"
+                >
+                  <span>Register</span>
+                </Button>
+              </Link>
+            </div>
+          </Collapse>
+        </div>
       </MtNavbar>
     </div>
   );
