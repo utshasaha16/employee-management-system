@@ -4,6 +4,7 @@ import NoteSection from "../noteSection/NoteSection";
 import QuestionSection from "../QuestionSection/QuestionSection";
 import Services from "../Services/Services";
 import Testimonials from "../Testimonials/Testimonials";
+import FindTalent from "../FindTalent/FindTalent";
 
 export const Home = () => {
   return (
@@ -11,10 +12,18 @@ export const Home = () => {
       <Helmet>
         <title>Employee | Home</title>
       </Helmet>
-      <header className="">
+      <header className="pt-16">
         <HomeSlider></HomeSlider>
       </header>
       <main>
+        {/* find talent section */}
+        <section className="mt-20">
+          <FindTalent></FindTalent>
+        </section>
+        {/* note-section */}
+        <section className="mt-20">
+          <NoteSection></NoteSection>
+        </section>
         {/* services section */}
         <section className="mt-20">
           <h2 className="text-center text-3xl font-semibold text-gray-800">
@@ -28,10 +37,6 @@ export const Home = () => {
             Testimonials
           </h2>
           <Testimonials></Testimonials>
-        </section>
-        {/* note-section */}
-        <section className="mt-20">
-          <NoteSection></NoteSection>
         </section>
         {/* questions section */}
         <section className="mt-20">

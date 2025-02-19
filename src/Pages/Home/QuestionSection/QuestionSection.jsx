@@ -20,7 +20,7 @@ const QuestionSection = () => {
         </form>
       </div>
      <div className="md:w-2/4 w-full md:mt-0 mt-3">
-     <img className="rounded-lg w-full h-full" src={questionImage} alt="" />
+     <img className="w-full h-full" src={questionImage} alt="" />
      </div>
     </section>
   );

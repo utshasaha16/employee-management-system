@@ -5,7 +5,7 @@ const NoteSection = () => {
     <div>
       <section className="lg:flex lg:items-center lg:justify-center ">
         <div>
-          <img className="rounded-lg" src={noteImage1} alt="" />
+          <img className="" src={noteImage1} alt="" />
         </div>
         <div className="lg:pl-6 pt-3">
           <h2 className="text-xl font-semibold mb-3">
@@ -35,7 +35,7 @@ const NoteSection = () => {
           </p>
         </div>
         <div>
-          <img className="rounded-lg" src={noteImage2} alt="" />
+          <img className="" src={noteImage2} alt="" />
         </div>
       </section>
     </div>

@@ -63,7 +63,7 @@ export const Navbar = () => {
 
   return (
     <div>
-      <MtNavbar className="shadow-md bg-white rounded-none px-4 py-2 lg:py-4">
+      <MtNavbar className="shadow-md bg-opacity-60 rounded-none px-4 py-2 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
           <div className="flex items-center gap-4">
             <Link to="/">
