@@ -9,8 +9,10 @@ import { Helmet } from "react-helmet-async";
 const Dashboard = () => {
   const location = useLocation();
   const [userData, isLoading] = useUserData();
-  console.log(userData);
-  console.log(userData.role);
+  
+  if (!isLoading) {
+    <Loading></Loading>;
+  }
   
   const isAdmin = userData.role === "Admin";
   const isHR = userData.role === "HR";
@@ -30,17 +32,15 @@ const Dashboard = () => {
     );
   }
 
-  if (!isLoading) {
-    <Loading></Loading>;
-  }
+  
 
   return (
     <>
       <Helmet>
-        <title>Employee | Dashboard</title>
+        <title>Employee Managemant | Dashboard</title>
       </Helmet>
       <div className="md:flex">
-        <div className="w-68 min-h-full bg-gray-200">
+        <div className="  bg-gray-200">
           <ul className="p-2">
             <li className="flex items-center gap-1 p-2">
               <FaHome></FaHome>
@@ -65,7 +65,7 @@ const Dashboard = () => {
               <>
                 <li className="flex items-center gap-1 mb-3">
                   <BiSpreadsheet className="text-lg"></BiSpreadsheet>
-                  <NavLink to="/dashboard/employeeList">Emplyee List</NavLink>
+                  <NavLink to="/dashboard/employeeList">Emplyee</NavLink>
                 </li>
                 <li className="flex items-center gap-1">
                   <MdPayment className="text-lg"></MdPayment>

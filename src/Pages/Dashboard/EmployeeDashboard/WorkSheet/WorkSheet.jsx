@@ -42,7 +42,7 @@ const WorkSheet = () => {
         reset();
         refetch();
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "Your work has been saved",
           showConfirmButton: false,
@@ -52,7 +52,6 @@ const WorkSheet = () => {
     });
   };
 
-  
   return (
     <div className="p-4">
       <h2 className="mb-3 text-lg">Work Sheet</h2>
@@ -100,41 +99,47 @@ const WorkSheet = () => {
           </button>
         </div>
       </form>
-      {/*  */}
+      {/* work-data */}
       <div className="mt-3">
         <h2 className="text-lg">Work Data</h2>
         <div className="mt-2">
-          <Card className="h-full w-full overflow-scroll">
-            <table className="w-full min-w-max table-auto text-left">
-              <thead>
-                <tr>
-                  {TABLE_HEAD.map((head) => (
-                    <th
-                      key={head}
-                      className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                    >
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal leading-none opacity-70"
+          {work.length === 0 ? (
+            <h2 className="text-center mt-10 text-lg">No work added yet</h2>
+          ) : (
+            <Card className="h-full w-full overflow-scroll">
+              <table className="w-full min-w-max table-auto text-left">
+                <thead>
+                  <tr>
+                    {TABLE_HEAD.map((head) => (
+                      <th
+                        key={head}
+                        className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
                       >
-                        {head}
-                      </Typography>
-                    </th>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal leading-none opacity-70"
+                        >
+                          {head}
+                        </Typography>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {work.map((sheet, index) => (
+                    <EmployeeForm
+                      sheet={sheet}
+                      index={index}
+                      key={sheet._id}
+                    ></EmployeeForm>
                   ))}
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  work.map((sheet, index) => <EmployeeForm sheet={sheet} index={index} key={sheet._id}></EmployeeForm>)
-                }
-              </tbody>
-            </table>
-          </Card>
+                </tbody>
+              </table>
+            </Card>
+          )}
         </div>
       </div>
-
-      
     </div>
   );
 };
