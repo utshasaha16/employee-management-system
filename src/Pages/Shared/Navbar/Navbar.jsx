@@ -184,9 +184,9 @@ export const Navbar = () => {
               <Link to="/login">
                 <Button
                   fullWidth
-                  variant="text"
+                  
                   size="sm"
-                  className="bg-[#557C56] text-white hover:text-black"
+                  className="bg-[#557C56] text-white hover:text-black hover:bg-white"
                 >
                   <span>Log In</span>
                 </Button>

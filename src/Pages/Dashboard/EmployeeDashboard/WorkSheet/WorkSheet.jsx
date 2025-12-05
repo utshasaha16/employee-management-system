@@ -104,7 +104,7 @@ const WorkSheet = () => {
         <h2 className="text-lg">Work Data</h2>
         <div className="mt-2">
           {work.length === 0 ? (
-            <h2 className="text-center mt-10 text-lg">No work added yet</h2>
+            <h2 className="text-center mt-10 text-lg">No Work Added Yet</h2>
           ) : (
             <Card className="h-full w-full overflow-scroll">
               <table className="w-full min-w-max table-auto text-left">
